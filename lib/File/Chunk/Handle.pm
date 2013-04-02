@@ -1,3 +1,5 @@
+# ABSTRACT: 
+
 package File::Chunk::Handle;
 use Moose;
 #use namespace::autoclean;
@@ -9,6 +11,7 @@ use MooseX::Params::Validate;
 
 use File::Chunk::Writer;
 use File::Chunk::Reader;
+use File::Chunk::Format::Hex;
 
 use namespace::clean;
 
@@ -40,18 +43,11 @@ has 'chunk_filename_format' => (
     default  => '%.8x.chunk',
 );
 
-has 'chunk_filename_regexp' => (
-    is      => 'ro',
-    isa     => RegexpRef,
-    default => sub {qr/^[[:xdigit:]]{8}\.chunk$/},
-);
-
 has 'file_dir' => (
     is      => 'ro',
     isa     => Dir,
     lazy    => 1,
     builder => '_build_file_dir',
-    #handles => { chunk_dir => 'subdir' },
 );
 
 sub chunk_dir {
@@ -88,8 +84,8 @@ sub new_writer {
 sub new_reader {
     my $self = shift;
     my $reader = File::Chunk::Reader->new(
-        file_dir              => $self->file_dir,
-        chunk_filename_regexp => $self->chunk_filename_regexp,
+        file_dir => $self->file_dir,
+        format   => File::Chunk::Format::Hex->new,
     );
 }
 

@@ -1,4 +1,4 @@
-# ABSTRACT: Highly configurable chunked file reading/writing
+# ABSTRACT: Read/Write file handles that are stored as seperate, size-limited files on disk
 
 package File::Chunk;
 use Moose;

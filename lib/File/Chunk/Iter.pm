@@ -1,3 +1,5 @@
+# ABSTRACT: Wrap a callback iterator to allow variable look-ahead.
+
 package File::Chunk::Iter;
 use Moose;
 use namespace::autoclean;

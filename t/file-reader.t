@@ -7,6 +7,7 @@ use Test::TempDir;
 use IO::String;
 
 use ok 'File::Chunk::Reader';
+use ok 'File::Chunk::Format::IntBare';
 
 my $root   = temp_root();
 
@@ -26,7 +27,7 @@ $str->print("foo\nbar\nbaz\n1\n2\n3\n");
 OBJECT_READER: {
     my $reader = File::Chunk::Reader->new(
         file_dir              => $root,
-        chunk_filename_regexp => qr/^\d+$/,
+        format                => File::Chunk::Format::IntBare->new,
     );
     $str->seek(0);
 
@@ -41,7 +42,7 @@ OBJECT_READER: {
 FH_READER: {
     my $reader = File::Chunk::Reader->new(
         file_dir              => $root,
-        chunk_filename_regexp => qr/^\d+$/,
+        format                => File::Chunk::Format::IntBare->new,
     );
     $str->seek(0);
 

@@ -1,3 +1,5 @@
+# ABSTRACT: Provide line-based chunk file writing as a file-handle-like object.
+
 package File::Chunk::Writer;
 use Moose;
 
