@@ -1,0 +1,6 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use File::Chunk::Script::Write;
+
+File::Chunk::Script::Write->new_with_options->run;
