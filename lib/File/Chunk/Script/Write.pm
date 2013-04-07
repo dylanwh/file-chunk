@@ -30,9 +30,16 @@ has 'limit' => (
     predicate   => 'has_limit',
 );
 
+sub new_handle { 
+    my ($self, $file) = @_;
+    
+    return File::Chunk::Handle->new(file => $file);
+}
+
+
 sub run {
     my $self = shift;
-    my $h = File::Chunk::Handle->new(file => $self->output_file);
+    my $h      = $self->new_handle($file);
     my $writer = $h->new_writer($self->key, $self->has_limit ? ( $self->limit ) : () );
 
     while (<STDIN>) {
