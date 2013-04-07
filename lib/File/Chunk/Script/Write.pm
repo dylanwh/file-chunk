@@ -1,3 +1,4 @@
+# ABSTRACT: Write chunked files from the shell.
 package File::Chunk::Script::Write;
 use Moose;
 use namespace::autoclean;
