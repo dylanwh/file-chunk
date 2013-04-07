@@ -40,7 +40,7 @@ sub new_handle {
 
 sub run {
     my $self = shift;
-    my $h      = $self->new_handle($file);
+    my $h      = $self->new_handle($self->output_file);
     my $writer = $h->new_writer($self->key, $self->has_limit ? ( $self->limit ) : () );
 
     while (<STDIN>) {
