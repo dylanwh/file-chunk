@@ -11,7 +11,7 @@ Return a callback iterator that successively returns chunk filenames in $dir as 
 
 =cut
 
-requires 'find_chunk_files';
+requires 'find_chunk_files', 'decode_chunk_filename', 'encode_chunk_filename';
 
 
 1;

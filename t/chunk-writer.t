@@ -5,6 +5,7 @@ use Test::More;
 use Test::TempDir;
 
 use ok 'File::Chunk::Writer';
+use ok 'File::Chunk::Format::IntBare';
 
 my $root = temp_root();
 
@@ -13,7 +14,7 @@ for my $limit ( 1, 10 ) {
     my $writer = File::Chunk::Writer->new(
         chunk_dir             => $dir,
         chunk_line_limit      => $limit,
-        chunk_filename_format => '%d',
+        format                => File::Chunk::Format::IntBare->new,
     );
 
     $writer->chunk_dir->mkpath;

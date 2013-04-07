@@ -35,9 +35,9 @@ has 'chunk_line_limit' => (
     required => 1,
 );
 
-has 'chunk_filename_format' => (
+has 'format' => (
     is       => 'ro',
-    isa      => 'Str',
+    does     => 'File::Chunk::Format',
     required => 1,
 );
 
@@ -76,9 +76,7 @@ after '_next_chunk' => sub { shift->_reset_chunk_line_count };
 sub _build_chunk {
     my $self = shift;
 
-    my $filename = $self->chunk_dir->file(
-        sprintf( $self->chunk_filename_format, $self->_next_chunk_id - 1 ) 
-    );
+    my $filename = $self->chunk_dir->file( $self->format->encode_chunk_filename( $self->_next_chunk_id - 1 ) );
 
     my $fh = $filename->openw;
     if ($self->has_binmode) {

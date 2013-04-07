@@ -5,20 +5,26 @@ use Moose;
 use namespace::autoclean;
 
 use MooseX::Params::Validate;
-use MooseX::Types::Path::Class 'Dir';
+use MooseX::Types::Path::Class 'File';
 
 use Path::Class::Rule;
 
-with 'File::Chunk::Format';
+with 'File::Chunk::Format::Regexp';
 
-sub find_chunk_files {
+sub chunk_regexp { qr/^\d+$/ }
+
+around decode_chunk_filename => sub {
+    my ($method, $self, @args) = @_;
+    int($self->$method(@args));
+};
+
+sub encode_chunk_filename {
     my $self = shift;
-    my ($dir) = pos_validated_list( \@_, { isa => Dir, coerce => 1 } );
+    my ($i) = pos_validated_list(\@_, { isa => 'Int' });
 
-    my $rules = Path::Class::Rule->new->skip_vcs->file->name(qr/^\d+$/);
-
-    return $rules->iter( $dir, { depthfirst => 1 } );
+    sprintf "%d", $i;
 }
+
 
 __PACKAGE__->meta->make_immutable;
 

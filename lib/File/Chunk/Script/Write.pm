@@ -30,8 +30,6 @@ has 'limit' => (
     predicate   => 'has_limit',
 );
 
-
-
 sub run {
     my $self = shift;
     my $h = File::Chunk::Handle->new(file => $self->output_file);
